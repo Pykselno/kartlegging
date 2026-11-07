@@ -3,360 +3,734 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pyksel – Kartlegging for ny nettside</title>
+  <link rel="icon" type="image/svg+xml" href="./new_logo.svg" />
+  <title>Prosjektoppstart — Pyksel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #090a0f;
-      --card: #12141d;
-      --card-border: #222638;
-      --input-bg: #181b26;
-      --input-border: #2c3147;
-      --accent: #6366f1;
-      --accent-hover: #4f46e5;
-      --text: #f3f4f6;
-      --muted: #9ca3af;
-      --success: #10b981;
+      --bg: #000000;
+      --surface: #0a0a0a;
+      --surface-hover: #111111;
+      --border: #1f1f1f;
+      --border-focus: #86c5b4;
+      --text: #f7f7f7;
+      --text-secondary: #9ca3af;
+      --text-muted: #666666;
+      --sage: #86c5b4;
+      --sage-strong: #5eb49d;
+      --sage-subtle: rgba(134, 197, 180, 0.08);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: radial-gradient(circle at top, #171a2b 0%, var(--bg) 60%);
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      background-color: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
       min-height: 100vh;
-      padding: 40px 16px 80px;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
     }
-    .container {
-      max-width: 760px;
+
+    /* Top Bar */
+    .topbar {
+      border-bottom: 1px solid var(--border);
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .topbar-inner {
+      max-width: 1080px;
       margin: 0 auto;
-    }
-    .header {
-      text-align: center;
-      margin-bottom: 36px;
-    }
-    .badge {
-      display: inline-block;
-      padding: 6px 14px;
-      background: rgba(99, 102, 241, 0.14);
-      border: 1px solid rgba(99, 102, 241, 0.35);
-      color: #a5b4fc;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      margin-bottom: 14px;
-    }
-    h1 {
-      font-size: clamp(26px, 4vw, 36px);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 10px;
-    }
-    .subtitle {
-      color: var(--muted);
-      font-size: 16px;
-      max-width: 580px;
-      margin: 0 auto;
-    }
-    .section-card {
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 28px;
-      margin-bottom: 22px;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
-    }
-    .section-title {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 6px;
+      padding: 0 32px;
+      height: 76px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: space-between;
     }
-    .section-num {
+
+    .brand-link {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      width: 26px;
-      height: 26px;
-      border-radius: 8px;
-      background: rgba(99, 102, 241, 0.2);
-      color: #a5b4fc;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      height: 38px;
+      width: auto;
+      display: block;
+    }
+
+    .topbar-meta {
       font-size: 13px;
-      font-weight: 700;
+      color: var(--text-secondary);
+      letter-spacing: 0.01em;
     }
-    .section-desc {
-      color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 20px;
+
+    .topbar-meta a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
     }
-    .field {
+
+    .topbar-meta a:hover {
+      border-color: var(--sage);
+    }
+
+    /* Main Wrapper */
+    .wrapper {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 64px 32px 120px;
+    }
+
+    /* Intro Header */
+    .intro {
+      max-width: 680px;
+      padding-bottom: 56px;
+    }
+
+    .eyebrow {
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--sage);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    h1 {
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: clamp(30px, 4.2vw, 44px);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      color: var(--text);
       margin-bottom: 18px;
     }
-    .field:last-child {
-      margin-bottom: 0;
+
+    .intro p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.65;
     }
-    label {
-      display: block;
-      font-size: 14px;
-      font-weight: 500;
-      margin-bottom: 6px;
-      color: #e5e7eb;
+
+    /* Editorial Sections */
+    .form-section {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 64px;
+      padding: 48px 0;
+      border-top: 1px solid var(--border);
     }
-    .hint {
-      display: block;
-      font-size: 12.5px;
-      color: var(--muted);
+
+    .section-meta h2 {
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text);
       margin-bottom: 8px;
     }
+
+    .section-meta p {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .section-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #e5e5e5;
+      margin-bottom: 6px;
+    }
+
+    .label-optional {
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-left: 4px;
+    }
+
+    .field-hint {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
     input[type="text"],
     input[type="email"],
     input[type="tel"],
     input[type="url"],
-    textarea,
-    select {
+    textarea {
       width: 100%;
-      background: var(--input-bg);
-      border: 1px solid var(--input-border);
-      border-radius: 10px;
-      padding: 12px 14px;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 13px 15px;
       color: var(--text);
       font-family: inherit;
       font-size: 14.5px;
-      transition: border-color 0.15s, box-shadow 0.15s;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
     }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #525252;
+    }
+
     textarea {
-      min-height: 95px;
+      min-height: 104px;
       resize: vertical;
+      line-height: 1.55;
     }
-    input:focus, textarea:focus, select:focus {
+
+    input:focus,
+    textarea:focus {
       outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+      border-color: var(--border-focus);
+      background-color: #0d0d0d;
     }
-    .grid-2 {
+
+    /* Selectable Pills / Checkboxes */
+    .options-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-    @media (max-width: 600px) {
-      .grid-2 { grid-template-columns: 1fr; }
-      .section-card { padding: 20px; }
-    }
-    .checkbox-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: 10px;
       margin-bottom: 12px;
     }
-    .checkbox-item {
+
+    .option-card {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 12px 14px;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13.5px;
+      color: #d4d4d4;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+      user-select: none;
+    }
+
+    .option-card:hover {
+      border-color: #333333;
+      background-color: var(--surface-hover);
+    }
+
+    .option-card input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 1px solid #404040;
+      border-radius: 3px;
+      background-color: transparent;
+      display: grid;
+      place-content: center;
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+    }
+
+    .option-card input[type="checkbox"]::before {
+      content: "";
+      width: 9px;
+      height: 5px;
+      border-left: 2px solid #000;
+      border-bottom: 2px solid #000;
+      transform: rotate(-45deg) scale(0);
+      transition: transform 0.12s ease;
+      margin-top: -1px;
+    }
+
+    .option-card input[type="checkbox"]:checked {
+      background-color: var(--sage);
+      border-color: var(--sage);
+    }
+
+    .option-card input[type="checkbox"]:checked::before {
+      transform: rotate(-45deg) scale(1);
+    }
+
+    /* File Upload Dropzone */
+    .upload-zone {
+      border: 1px dashed #333333;
+      background-color: var(--surface);
+      border-radius: 8px;
+      padding: 32px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+      position: relative;
+    }
+
+    .upload-zone:hover,
+    .upload-zone.dragover {
+      border-color: var(--sage);
+      background-color: var(--sage-subtle);
+    }
+
+    .upload-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .upload-icon {
+      width: 36px;
+      height: 36px;
+      margin: 0 auto 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--sage);
+    }
+
+    .upload-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .upload-title span {
+      color: var(--sage);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .upload-sub {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+    }
+
+    .file-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .file-item {
       display: flex;
       align-items: center;
       gap: 10px;
-      background: var(--input-bg);
-      border: 1px solid var(--input-border);
-      padding: 10px 12px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 13.5px;
-      user-select: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      position: relative;
     }
-    .checkbox-item input {
-      accent-color: var(--accent);
-      width: 16px;
-      height: 16px;
-    }
-    .submit-btn {
-      width: 100%;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      padding: 16px 24px;
-      font-size: 16px;
+
+    .file-thumb {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      background: #161616;
+      object-fit: cover;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
       font-weight: 600;
+      color: var(--sage);
+      border: 1px solid #222;
+    }
+
+    .file-info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .file-name {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .file-size {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .file-remove {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
       cursor: pointer;
-      transition: background 0.15s, transform 0.1s;
-      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+      padding: 4px;
+      font-size: 16px;
+      line-height: 1;
+      transition: color 0.15s;
     }
-    .submit-btn:hover { background: var(--accent-hover); }
-    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-    .success-box {
+
+    .file-remove:hover {
+      color: #ef4444;
+    }
+
+    /* Submit Footer */
+    .submit-bar {
+      border-top: 1px solid var(--border);
+      padding-top: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .submit-note {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      max-width: 460px;
+    }
+
+    .submit-btn {
+      background-color: var(--sage);
+      color: #000000;
+      border: none;
+      border-radius: 6px;
+      padding: 15px 32px;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+    }
+
+    .submit-btn:hover {
+      background-color: var(--sage-strong);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    /* Confirmation View */
+    .confirmation {
       display: none;
-      text-align: center;
-      background: var(--card);
-      border: 1px solid rgba(16, 185, 129, 0.4);
-      border-radius: 16px;
-      padding: 48px 28px;
-      margin-top: 20px;
+      border-top: 1px solid var(--border);
+      padding: 72px 0;
+      max-width: 620px;
     }
-    .success-box h2 {
-      color: var(--success);
-      margin-bottom: 10px;
+
+    .confirmation-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--sage);
+      margin-bottom: 16px;
+    }
+
+    .confirmation h2 {
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+
+    .confirmation p {
+      font-size: 15.5px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    @media (max-width: 820px) {
+      .topbar-inner { padding: 0 20px; }
+      .wrapper { padding: 40px 20px 80px; }
+      .form-section {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 36px 0;
+      }
+      .field-row {
+        grid-template-columns: 1fr;
+      }
+      .submit-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .submit-btn {
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <span class="badge">PYKSEL</span>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="https://pyksel.no" target="_blank" rel="noopener" class="brand-link">
+        <img src="./logo-400.webp" alt="Pyksel" class="brand-logo" />
+      </a>
+      <div class="topbar-meta">
+        Spørsmål? <a href="mailto:yousef@pyksel.no">yousef@pyksel.no</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrapper">
+    <div class="intro" id="introHeader">
+      <span class="eyebrow">Prosjektoppstart</span>
       <h1>Kartlegging for ny nettside</h1>
-      <p class="subtitle">
-        Fyll ut punktene under så godt du kan før vi prates. Stikkord holder i massevis – det du er usikker på tar vi bare sammen på møtet!
+      <p>
+        Fyll ut det du har klart under, så bruker vi dette som grunnlag når vi bygger struktur, tekst og design. Korte stikkord holder lenge – det du er usikker på tar vi sammen på møtet.
       </p>
     </div>
 
     <form id="onboardingForm">
-      <!-- 1. Bedrift & Kontakt -->
-      <div class="section-card">
-        <div class="section-title"><span class="section-num">1</span> Bedrift og kontaktperson</div>
-        <p class="section-desc">Grunnleggende info om prosjektet.</p>
-        <div class="grid-2">
-          <div class="field">
-            <label for="projectName">Navn på bedrift / prosjekt *</label>
-            <input type="text" id="projectName" required placeholder="F.eks. Øst Entreprenør og Eiendom AS" />
+      <!-- Seksjon 1: Bedrift & Kontakt -->
+      <section class="form-section">
+        <div class="section-meta">
+          <h2>Bedrift og kontaktperson</h2>
+          <p>Hvem vi lager nettsiden for, og hvem som er hovedkontakt underveis i prosessen.</p>
+        </div>
+        <div class="section-fields">
+          <div class="field-row">
+            <div class="field">
+              <label for="projectName">Bedriftsnavn / prosjekt *</label>
+              <input type="text" id="projectName" required placeholder="F.eks. Øst Entreprenør og Eiendom AS" />
+            </div>
+            <div class="field">
+              <label for="contactName">Kontaktperson *</label>
+              <input type="text" id="contactName" required placeholder="Fornavn og etternavn" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="contactEmail">E-postadresse *</label>
+              <input type="email" id="contactEmail" required placeholder="navn@bedrift.no" />
+            </div>
+            <div class="field">
+              <label for="contactPhone">Telefonnummer *</label>
+              <input type="tel" id="contactPhone" required placeholder="900 00 000" />
+            </div>
           </div>
           <div class="field">
-            <label for="contactName">Ditt navn *</label>
-            <input type="text" id="contactName" required placeholder="Fornavn og etternavn" />
+            <label for="domainAndHosting">Domene og eksisterende oppsett <span class="label-optional">(valgfritt)</span></label>
+            <span class="field-hint">Har dere allerede kjøpt et domene (f.eks. .no), og vet du hvor det er registrert (Domeneshop, Uniweb, Proisp)? Eller skal vi ordne domene for dere?</span>
+            <input type="text" id="domainAndHosting" placeholder="F.eks. Har domene hos Domeneshop / Ønsker at dere bestiller .no-domene" />
           </div>
         </div>
-        <div class="grid-2" style="margin-top: 14px;">
+      </section>
+
+      <!-- Seksjon 2: Om bedriften & Målgruppe -->
+      <section class="form-section">
+        <div class="section-meta">
+          <h2>Om bedriften og målgruppen</h2>
+          <p>Dette bruker vi til å spisse budskapet øverst på forsiden, slik at nye besøkende raskt forstår hva dere tilbyr.</p>
+        </div>
+        <div class="section-fields">
           <div class="field">
-            <label for="contactEmail">Din e-post *</label>
-            <input type="email" id="contactEmail" required placeholder="navn@bedrift.no" />
+            <label for="companySummary">Kort om bedriften og hva som skiller dere ut *</label>
+            <span class="field-hint">Hva driver dere med, hva er dere aller best på, og hvorfor bør kunden velge akkurat dere?</span>
+            <textarea id="companySummary" required placeholder="Beskriv kort med egne ord..."></textarea>
           </div>
           <div class="field">
-            <label for="contactPhone">Telefonnummer *</label>
-            <input type="tel" id="contactPhone" required placeholder="900 00 000" />
+            <label for="targetAudience">Målgruppe og geografisk område *</label>
+            <span class="field-hint">Leverer dere til privatpersoner, bedrifter eller begge deler – og i hvilket område (f.eks. Skien/Grenland, Vestfold og Telemark, eller hele landet)?</span>
+            <textarea id="targetAudience" required placeholder="F.eks. Privatpersoner og bedrifter i Skien, Porsgrunn og Telemark..."></textarea>
           </div>
         </div>
-      </div>
+      </section>
 
-      <!-- 2. Domene & Hosting -->
-      <div class="section-card">
-        <div class="section-title"><span class="section-num">2</span> Domene og nåværende nettside</div>
-        <p class="section-desc">Har dere allerede et domene (f.eks. .no), eller ønsker dere at vi finner og registrerer et for dere?</p>
-        <div class="field">
-          <label for="domainAndHosting">Ønsket/eksisterende domene og leverandør</label>
-          <span class="hint">Skriv gjerne hvilket domene dere tenker på, og evt. hvor det er kjøpt (Domeneshop, Uniweb, Proisp e.l.).</span>
-          <textarea id="domainAndHosting" placeholder="F.eks. Vi ønsker ostentreprenor.no (ikke kjøpt ennå) / Har domene hos Domeneshop..."></textarea>
+      <!-- Seksjon 3: Mål & Tjenester -->
+      <section class="form-section">
+        <div class="section-meta">
+          <h2>Mål og tjenester</h2>
+          <p>Hvilke tjenester som skal løftes frem, og hva som er den viktigste handlingen en besøkende skal gjøre på siden.</p>
         </div>
-      </div>
-
-      <!-- 3. Om bedriften & Målgruppe -->
-      <div class="section-card">
-        <div class="section-title"><span class="section-num">3</span> Om bedriften og målgruppen</div>
-        <p class="section-desc">Hva skal en ny kunde forstå med én gang de kommer inn på nettsiden?</p>
-        <div class="field">
-          <label for="companySummary">Kort om bedriften og hva som skiller dere ut *</label>
-          <span class="hint">Hva driver dere med, hva er dere aller best på, og hvorfor bør kunden velge akkurat dere?</span>
-          <textarea id="companySummary" required placeholder="Fortell kort med egne ord..."></textarea>
-        </div>
-        <div class="field">
-          <label for="targetAudience">Hvem er kundene deres, og hvilket område dekker dere? *</label>
-          <span class="hint">Privatpersoner, bedrifter, aldersgruppe/bransje – og hvilket geografisk område (f.eks. Skien/Grenland, Telemark eller hele landet)?</span>
-          <textarea id="targetAudience" required placeholder="F.eks. Privatpersoner og bedrifter i Skien, Porsgrunn og resten av Telemark..."></textarea>
-        </div>
-      </div>
-
-      <!-- 4. Hovedmål & Tjenester -->
-      <div class="section-card">
-        <div class="section-title"><span class="section-num">4</span> Mål med siden og tjenester</div>
-        <p class="section-desc">Hva vil dere oppnå med siden, og hva tilbyr dere?</p>
-        <div class="field">
-          <label>Hva ønsker dere at besøkende skal gjøre på nettsiden? (Velg gjerne flere)</label>
-          <div class="checkbox-grid" id="goalCheckboxes">
-            <label class="checkbox-item"><input type="checkbox" value="Fylle ut kontaktskjema / be om tilbud"> Be om tilbud / skjema</label>
-            <label class="checkbox-item"><input type="checkbox" value="Booke gratis befaring / samtale"> Booke befaring / møte</label>
-            <label class="checkbox-item"><input type="checkbox" value="Ringe direkte"> Ringe direkte</label>
-            <label class="checkbox-item"><input type="checkbox" value="Se tidligere prosjekter / referanser"> Se referanser / arbeid</label>
-            <label class="checkbox-item"><input type="checkbox" value="Kjøpe pakke / kurs direkte"> Kjøpe tjeneste / kurs</label>
-            <label class="checkbox-item"><input type="checkbox" value="Søke jobb / bli selger"> Rekruttere ansatte</label>
+        <div class="section-fields">
+          <div class="field">
+            <label>Hva er hovedmålet med nettsiden? <span class="label-optional">(velg gjerne flere)</span></label>
+            <div class="options-grid" id="goalCheckboxes">
+              <label class="option-card"><input type="checkbox" value="Fylle ut kontaktskjema / be om tilbud" checked /> Be om tilbud / skjema</label>
+              <label class="option-card"><input type="checkbox" value="Booke gratis befaring / samtale" /> Booke befaring / samtale</label>
+              <label class="option-card"><input type="checkbox" value="Ringe direkte" /> Ringe direkte</label>
+              <label class="option-card"><input type="checkbox" value="Se referanser og utførte prosjekter" /> Vise frem utført arbeid</label>
+              <label class="option-card"><input type="checkbox" value="Selge tjenestepakker / kurs" /> Selge pakker / coaching</label>
+              <label class="option-card"><input type="checkbox" value="Rekruttere ansatte / selgere" /> Rekruttere ansatte / selgere</label>
+            </div>
+            <input type="text" id="websiteGoalsExtra" placeholder="Eventuelle andre mål med nettsiden..." />
           </div>
-          <input type="text" id="websiteGoalsExtra" placeholder="Andre mål eller viktigste handling (CTA)..." />
-        </div>
-        <div class="field">
-          <label for="servicesAndPages">Hovedtjenester og ønskede seksjoner/undersider *</label>
-          <span class="hint">Ramse opp tjenestene dere vil fremheve (f.eks. Nybygg, Tilbygg, Renovering, Graving – eller 1-til-1 Coaching, Foredrag, Salgstrening).</span>
-          <textarea id="servicesAndPages" required placeholder="Skriv inn hovedtjenestene deres og eventuelle undersider dere ønsker..."></textarea>
-        </div>
-      </div>
 
-      <!-- 5. Tekster & Referanser -->
-      <div class="section-card">
-        <div class="section-title"><span class="section-num">5</span> Tekster, referanser og tillitsbevis</div>
-        <div class="field">
-          <label for="contentAndCopy">Tekster og tone på nettsiden</label>
-          <span class="hint">Har dere tekster selv, eller vil dere at vi skriver tekstforslag basert på dette skjemaet og møtet vårt? Hvordan skal tonen være?</span>
-          <textarea id="contentAndCopy" placeholder="F.eks. Dere kan skrive tekstene for oss. Tonen bør være trygg, profesjonell og rett på sak..."></textarea>
-        </div>
-        <div class="field">
-          <label for="socialProof">Referanseprosjekter, kundesitater, tall eller godkjenninger</label>
-          <span class="hint">Har dere tidligere prosjekter, omtaler fra fornøyde kunder, antall år erfaring, Mesterbrev/godkjenninger eller resultater vi kan trekke frem?</span>
-          <textarea id="socialProof" placeholder="Skriv gjerne inn prosjekter, sitater eller nøkkeltall..."></textarea>
-        </div>
-      </div>
-
-      <!-- 6. Design, Farger & Funksjoner -->
-      <div class="section-card">
-        <div class="section-title"><span class="section-num">6</span> Design, inspirasjon og funksjoner</div>
-        <div class="field">
-          <label for="designAndBranding">Ønskede farger, stil og 1–3 nettsider dere liker</label>
-          <span class="hint">Liker dere mørk og eksklusiv stil, lys og luftig, moderne/industriell? Lim gjerne inn lenker til nettsider dere synes ser bra ut.</span>
-          <textarea id="designAndBranding" placeholder="F.eks. Moderne mørk/hvit stil med gull/blå detaljer. Liker stilen på..."></textarea>
-        </div>
-        <div class="field">
-          <label>Ønskede funksjoner på nettsiden</label>
-          <div class="checkbox-grid" id="featureCheckboxes">
-            <label class="checkbox-item"><input type="checkbox" value="Kontaktskjema" checked> Kontaktskjema</label>
-            <label class="checkbox-item"><input type="checkbox" value="Kalenderbooking (f.eks. Calendly/Cal)"> Kalenderbooking</label>
-            <label class="checkbox-item"><input type="checkbox" value="Bildegalleri / Prosjektvisning"> Prosjekt-/bildegalleri</label>
-            <label class="checkbox-item"><input type="checkbox" value="Før/etter-bilder"> Før/etter-visning</label>
-            <label class="checkbox-item"><input type="checkbox" value="Ofte stilte spørsmål (FAQ)"> Ofte stilte spørsmål (FAQ)</label>
-            <label class="checkbox-item"><input type="checkbox" value="Google Analytics / Meta Pixel"> Statistikk / Pixel</label>
+          <div class="field">
+            <label for="servicesAndPages">Hovedtjenester og ønskede seksjoner/undersider *</label>
+            <span class="field-hint">Skriv opp tjenestene dere vil ha med (f.eks. Nybygg, Tilbygg, Renovering, Graving – eller Coaching, Lederutvikling, Foredrag, Telefonsalg).</span>
+            <textarea id="servicesAndPages" required placeholder="Ramse gjerne opp tjenestene deres her..."></textarea>
           </div>
-          <input type="text" id="featuresExtra" placeholder="Andre funksjoner eller integrasjoner dere trenger..." />
         </div>
-      </div>
+      </section>
 
-      <!-- 7. Kontaktinfo, Bilder & Møte -->
-      <div class="section-card">
-        <div class="section-title"><span class="section-num">7</span> Kontaktinfo på siden, bilder og møtetidspunkt</div>
-        <div class="field">
-          <label for="publicContactInfo">Hvilken kontaktinfo og sosiale medier skal vises på nettsiden? *</label>
-          <span class="hint">E-postadresse for kundehenvendelser, telefonnummer, adresse, åpningstider og evt. Instagram/Facebook/LinkedIn/TikTok.</span>
-          <textarea id="publicContactInfo" required placeholder="E-post, tlf, adresse, Instagram/Facebook..."></textarea>
+      <!-- Seksjon 4: Innhold, Referanser & Design -->
+      <section class="form-section">
+        <div class="section-meta">
+          <h2>Innhold, referanser og visuell retning</h2>
+          <p>Har dere tekster, referanser eller bestemte ønsker for stil og uttrykk?</p>
         </div>
-        <div class="field">
-          <label for="driveFolderUrl">Logo og bilder (Lenke eller hvordan du sender dem)</label>
-          <span class="hint">Har du en mappe i Google Drive, Dropbox eller iCloud med logo og bilder? Lim inn lenken her – eller bare svar på e-posten vår og legg ved bildene der!</span>
-          <input type="text" id="driveFolderUrl" placeholder="Lenke til Google Drive / Dropbox eller kommentar om bilder..." />
+        <div class="section-fields">
+          <div class="field">
+            <label for="contentAndCopy">Tekster på nettsiden</label>
+            <span class="field-hint">Har dere tekster klare selv, eller ønsker dere at vi i Pyksel skriver tekstene ferdig basert på dette skjemaet og praten vår?</span>
+            <textarea id="contentAndCopy" placeholder="F.eks. Vi ønsker at dere utarbeider tekstene. Tonen skal være ryddig, tillitsvekkende og rett på sak..."></textarea>
+          </div>
+          <div class="field">
+            <label for="socialProof">Referanser, tidligere prosjekter eller nøkkeltall <span class="label-optional">(valgfritt)</span></label>
+            <span class="field-hint">Har dere tidligere prosjekter vi kan nevne, omtaler fra kunder, antall år erfaring eller godkjenninger (f.eks. Mesterbrev / Sentral godkjenning)?</span>
+            <textarea id="socialProof" placeholder="Skriv gjerne inn prosjekter, sitater eller tall..."></textarea>
+          </div>
+          <div class="field">
+            <label for="designAndBranding">Visuell stil, farger og inspirasjon <span class="label-optional">(valgfritt)</span></label>
+            <span class="field-hint">Ønsker dere et mørkt, lyst, minimalistisk eller industrielt uttrykk? Lim gjerne inn 1–3 nettsider dere liker stilen på.</span>
+            <textarea id="designAndBranding" placeholder="Farger, stilønsker eller lenker til nettsider dere liker..."></textarea>
+          </div>
+          <div class="field">
+            <label>Ønskede funksjoner på siden</label>
+            <div class="options-grid" id="featureCheckboxes">
+              <label class="option-card"><input type="checkbox" value="Kontaktskjema" checked /> Kontaktskjema</label>
+              <label class="option-card"><input type="checkbox" value="Prosjekt- og bildegalleri" /> Prosjekt- / bildegalleri</label>
+              <label class="option-card"><input type="checkbox" value="Før- og etter-bilder" /> Før / etter-visning</label>
+              <label class="option-card"><input type="checkbox" value="Kalenderbooking (booke møte)" /> Kalenderbooking</label>
+              <label class="option-card"><input type="checkbox" value="Ofte stilte spørsmål (FAQ)" /> Ofte stilte spørsmål (FAQ)</label>
+              <label class="option-card"><input type="checkbox" value="Google Analytics / Meta Pixel" /> Sporing (Analytics / Pixel)</label>
+            </div>
+            <input type="text" id="featuresExtra" placeholder="Andre funksjoner eller integrasjoner..." />
+          </div>
         </div>
-        <div class="field">
-          <label for="preferredMeetingTime">Når passer det å ta en prat? (Og eventuelle andre kommentarer)</label>
-          <span class="hint">Hvis vi ikke allerede har avtalt tidspunkt for kartleggingsmøte, skriv gjerne hvilken dag/klokkeslett som passer for deg!</span>
-          <textarea id="preferredMeetingTime" placeholder="F.eks. Passer i morgen etter kl. 14:00, eller søndag kl. 13:00..."></textarea>
-        </div>
-      </div>
+      </section>
 
-      <button type="submit" class="submit-btn" id="submitBtn">Send inn kartlegging →</button>
+      <!-- Seksjon 5: Bilder, Logo & Kontaktinfo -->
+      <section class="form-section">
+        <div class="section-meta">
+          <h2>Logo, bilder og kontaktinfo</h2>
+          <p>Last opp logo og bilder direkte her. Filene knyttes automatisk til prosjektet deres i vårt system.</p>
+        </div>
+        <div class="section-fields">
+          <div class="field">
+            <label>Last opp logo og bilder <span class="label-optional">(PNG, JPG, WEBP, SVG, PDF)</span></label>
+            <span class="field-hint">Slipp filene i boksen under eller klikk for å velge fra telefon/PC (du kan velge flere bilder samtidig).</span>
+            <div class="upload-zone" id="dropZone">
+              <input type="file" id="fileInput" multiple accept="image/*,.pdf,.svg,.ai,.eps,.zip" />
+              <div class="upload-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="17 8 12 3 7 8"/>
+                  <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+              </div>
+              <div class="upload-title"><span>Velg filer</span> eller dra og slipp dem her</div>
+              <div class="upload-sub">Logo, bilder av utført arbeid, ansatte eller profilmanual</div>
+            </div>
+            <div class="file-list" id="fileList"></div>
+          </div>
+
+          <div class="field">
+            <label for="driveFolderUrl">Eventuell lenke til bildebank / Google Drive / Dropbox <span class="label-optional">(valgfritt)</span></label>
+            <input type="text" id="driveFolderUrl" placeholder="https://drive.google.com/..." />
+          </div>
+
+          <div class="field">
+            <label for="publicContactInfo">Kontaktinformasjon som skal vises på selve nettsiden *</label>
+            <span class="field-hint">Hvilken e-post, telefonnummer, besøksadresse, åpningstider og evt. Instagram/Facebook/LinkedIn skal ligge synlig på nettsiden?</span>
+            <textarea id="publicContactInfo" required placeholder="E-post, telefon, adresse, sosiale medier..."></textarea>
+          </div>
+
+          <div class="field">
+            <label for="preferredMeetingTime">Tidspunkt for gjennomgang / andre kommentarer <span class="label-optional">(valgfritt)</span></label>
+            <span class="field-hint">Har vi ikke spikret tidspunkt for møtet ennå, skriv gjerne når det passer for deg å ta en kjapp prat.</span>
+            <textarea id="preferredMeetingTime" placeholder="F.eks. Passer etter kl. 14:00, eller søndag kl. 13:00..."></textarea>
+          </div>
+        </div>
+      </section>
+
+      <div class="submit-bar">
+        <p class="submit-note">
+          Når du sender inn skjemaet, lagres svarene og bildene direkte på prosjektkortet deres hos Pyksel.
+        </p>
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <span id="submitBtnText">Send inn kartlegging</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </div>
     </form>
 
-    <div class="success-box" id="successBox">
-      <h2>Tusen takk! Kartleggingen er mottatt 🎉</h2>
-      <p style="color: var(--muted); max-width: 480px; margin: 0 auto;">
-        Svarene dine er nå lagret hos oss i Pyksel, og vi har fått varsel på e-post. Har du logo eller bilder liggende på mobilen/PC-en, kan du bare sende dem som vedlegg ved å svare på e-posten fra oss!
+    <div class="confirmation" id="successBox">
+      <div class="confirmation-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        Mottatt
+      </div>
+      <h2>Takk, da har vi mottatt alt.</h2>
+      <p>
+        Kartleggingen og eventuelle opplastede filer er nå registrert på prosjektet deres hos oss. Vi går gjennom alt før møtet vårt – ettersend gjerne flere bilder ved behov.
       </p>
     </div>
-  </div>
+  </main>
 
   <script>
-    const WEBHOOK_URL = "https://crm.pyksel.no/webhooks/workflows/1937a788-06a5-4b44-9d27-d5c7d456751d/d185fedb-72fe-4bed-bf70-7e18bd58fe73";
+    const WEBHOOK_URL = "https://crm.pyksel.no/webhooks/workflows/1937a788-06a5-4b44-9d27-d5c7d456751d/d388b228-64d9-4013-b872-e080f4bd0815";
 
     // Pre-fill from URL params (?bedrift=...&navn=...&epost=...&tlf=...&mote=...)
     const params = new URLSearchParams(window.location.search);
@@ -366,6 +740,95 @@
     if (params.get("tlf")) document.getElementById("contactPhone").value = params.get("tlf");
     if (params.get("mote")) document.getElementById("preferredMeetingTime").value = params.get("mote");
 
+    // File selection & drag-and-drop state
+    const fileInput = document.getElementById("fileInput");
+    const dropZone = document.getElementById("dropZone");
+    const fileListEl = document.getElementById("fileList");
+    let selectedFiles = [];
+
+    function formatBytes(bytes) {
+      if (bytes < 1024) return bytes + " B";
+      if (bytes < 1048576) return (bytes / 1024).toFixed(1) + " KB";
+      return (bytes / 1048576).toFixed(1) + " MB";
+    }
+
+    function renderFileList() {
+      fileListEl.innerHTML = "";
+      selectedFiles.forEach((file, idx) => {
+        const item = document.createElement("div");
+        item.className = "file-item";
+
+        if (file.type.startsWith("image/")) {
+          const img = document.createElement("img");
+          img.className = "file-thumb";
+          img.src = URL.createObjectURL(file);
+          item.appendChild(img);
+        } else {
+          const ext = document.createElement("div");
+          ext.className = "file-thumb";
+          ext.textContent = (file.name.split(".").pop() || "FIL").toUpperCase().slice(0, 4);
+          item.appendChild(ext);
+        }
+
+        const info = document.createElement("div");
+        info.className = "file-info";
+        info.innerHTML = `<div class="file-name" title="${file.name}">${file.name}</div><div class="file-size">${formatBytes(file.size)}</div>`;
+        item.appendChild(info);
+
+        const removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.className = "file-remove";
+        removeBtn.innerHTML = "&times;";
+        removeBtn.title = "Fjern fil";
+        removeBtn.onclick = () => {
+          selectedFiles.splice(idx, 1);
+          renderFileList();
+        };
+        item.appendChild(removeBtn);
+
+        fileListEl.appendChild(item);
+      });
+    }
+
+    fileInput.addEventListener("change", (e) => {
+      const files = Array.from(e.target.files || []);
+      selectedFiles = selectedFiles.concat(files).slice(0, 20);
+      fileInput.value = "";
+      renderFileList();
+    });
+
+    dropZone.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropZone.classList.add("dragover");
+    });
+
+    dropZone.addEventListener("dragleave", () => {
+      dropZone.classList.remove("dragover");
+    });
+
+    dropZone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropZone.classList.remove("dragover");
+      const files = Array.from(e.dataTransfer.files || []);
+      selectedFiles = selectedFiles.concat(files).slice(0, 20);
+      renderFileList();
+    });
+
+    async function uploadSingleFile(file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await fetch("https://tmpfiles.org/api/v1/upload", {
+        method: "POST",
+        body: formData
+      });
+      const data = await res.json();
+      if (data && data.data && data.data.url) {
+        // Convert https://tmpfiles.org/12345/name.png -> direct download https://tmpfiles.org/dl/12345/name.png
+        return data.data.url.replace("https://tmpfiles.org/", "https://tmpfiles.org/dl/");
+      }
+      return null;
+    }
+
     function getCheckedValues(containerId) {
       return Array.from(document.querySelectorAll(`#${containerId} input[type="checkbox"]:checked`))
         .map(cb => cb.value);
@@ -374,8 +837,21 @@
     document.getElementById("onboardingForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const btn = document.getElementById("submitBtn");
+      const btnText = document.getElementById("submitBtnText");
       btn.disabled = true;
-      btn.textContent = "Sender inn...";
+
+      const uploadedUrls = [];
+      for (let i = 0; i < selectedFiles.length; i++) {
+        btnText.textContent = `Laster opp fil ${i + 1} av ${selectedFiles.length}...`;
+        try {
+          const url = await uploadSingleFile(selectedFiles[i]);
+          if (url) uploadedUrls.push(`${selectedFiles[i].name}: ${url}`);
+        } catch (err) {
+          console.error("Upload error:", err);
+        }
+      }
+
+      btnText.textContent = "Lagrer kartlegging...";
 
       const goals = getCheckedValues("goalCheckboxes");
       const goalsExtra = document.getElementById("websiteGoalsExtra").value.trim();
@@ -385,12 +861,23 @@
       const featuresExtra = document.getElementById("featuresExtra").value.trim();
       if (featuresExtra) features.push(featuresExtra);
 
-      const contactHeader = [
+      const externalDriveLink = document.getElementById("driveFolderUrl").value.trim();
+      const primaryFileUrl = uploadedUrls.length > 0
+        ? uploadedUrls[0].split(": ")[1]
+        : (externalDriveLink || "https://crm.pyksel.no");
+
+      const contactParts = [
         `Kontaktperson: ${document.getElementById("contactName").value.trim()}`,
         `E-post: ${document.getElementById("contactEmail").value.trim()}`,
         `Tlf: ${document.getElementById("contactPhone").value.trim()}`,
         `På nettsiden: ${document.getElementById("publicContactInfo").value.trim()}`
-      ].join(" | ");
+      ];
+      if (uploadedUrls.length > 0) {
+        contactParts.push(`Opplastede filer (${uploadedUrls.length}): ${uploadedUrls.join(" , ")}`);
+      }
+      if (externalDriveLink) {
+        contactParts.push(`Mappelenke: ${externalDriveLink}`);
+      }
 
       const payload = {
         projectName: document.getElementById("projectName").value.trim(),
@@ -403,8 +890,8 @@
         socialProof: document.getElementById("socialProof").value.trim(),
         designAndBranding: document.getElementById("designAndBranding").value.trim(),
         featuresAndIntegrations: features.join(", "),
-        publicContactInfo: contactHeader,
-        driveFolderUrl: document.getElementById("driveFolderUrl").value.trim() || "Sendes på e-post/møte",
+        publicContactInfo: contactParts.join(" | "),
+        driveFolderUrl: primaryFileUrl,
         preferredMeetingTime: document.getElementById("preferredMeetingTime").value.trim()
       };
 
@@ -415,12 +902,13 @@
           body: JSON.stringify(payload)
         });
         document.getElementById("onboardingForm").style.display = "none";
+        document.getElementById("introHeader").style.display = "none";
         document.getElementById("successBox").style.display = "block";
         window.scrollTo({ top: 0, behavior: "smooth" });
       } catch (err) {
         alert("Kunne ikke sende skjemaet akkurat nå. Prøv igjen om et øyeblikk.");
         btn.disabled = false;
-        btn.textContent = "Send inn kartlegging →";
+        btnText.textContent = "Send inn kartlegging";
       }
     });
   </script>
