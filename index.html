@@ -730,7 +730,7 @@
   </main>
 
   <script>
-    const WEBHOOK_URL = "https://crm.pyksel.no/webhooks/workflows/1937a788-06a5-4b44-9d27-d5c7d456751d/d388b228-64d9-4013-b872-e080f4bd0815";
+    const WEBHOOK_URL = "https://crm.pyksel.no/webhooks/workflows/1937a788-06a5-4b44-9d27-d5c7d456751d/fe9bf5ed-95f2-4121-a785-250803c88afb";
 
     // Pre-fill from URL params (?bedrift=...&navn=...&epost=...&tlf=...&mote=...)
     const params = new URLSearchParams(window.location.search);
@@ -879,8 +879,18 @@
         contactParts.push(`Mappelenke: ${externalDriveLink}`);
       }
 
+      const uploadedFilesMarkdown = uploadedUrls.length > 0
+        ? uploadedUrls.map(item => {
+            const [fname, furl] = item.split(": ");
+            return `- [${fname}](${furl})\n![${fname}](${furl})`;
+          }).join("\n\n")
+        : "Ingen filer lastet opp direkte i skjemaet.";
+
       const payload = {
         projectName: document.getElementById("projectName").value.trim(),
+        contactName: document.getElementById("contactName").value.trim(),
+        contactEmail: document.getElementById("contactEmail").value.trim(),
+        contactPhone: document.getElementById("contactPhone").value.trim(),
         domainAndHosting: document.getElementById("domainAndHosting").value.trim(),
         companySummary: document.getElementById("companySummary").value.trim(),
         targetAudience: document.getElementById("targetAudience").value.trim(),
@@ -892,6 +902,7 @@
         featuresAndIntegrations: features.join(", "),
         publicContactInfo: contactParts.join(" | "),
         driveFolderUrl: primaryFileUrl,
+        uploadedFilesSummary: uploadedFilesMarkdown,
         preferredMeetingTime: document.getElementById("preferredMeetingTime").value.trim()
       };
 
